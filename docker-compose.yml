@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  nextcloud:
+    image: nextcloud:12-apache
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=mysql:3306
+      - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
+      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
+    ports:
+      - 8080:80
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - type: volume
+        source: nextcloud
+        target: /var/www/html
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    networks:
+      default:
+        aliases:
+          - mysql
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - type: volume
+        source: mysql
+        target: /var/lib/mysql
+
+volumes:
+  nextcloud:
+  mysql:
+
