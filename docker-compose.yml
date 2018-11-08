@@ -10,6 +10,7 @@ services:
       - MYSQL_HOST=mysql:3306
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
       - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
+      - NEXTCLOUD_TABLE_PREFIX=nc_
     ports:
       - 8080:80
     links:
@@ -20,8 +21,9 @@ services:
       - type: volume
         source: nextcloud
         target: /var/www/html
+  
   db:
-    image: mysql:5.7.24
+    image: mysql:8.0.13
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
