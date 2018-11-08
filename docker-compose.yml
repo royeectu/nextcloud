@@ -21,7 +21,7 @@ services:
         source: nextcloud
         target: /var/www/html
   db:
-    image: mysql
+    image: mysql:5.7.24
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
