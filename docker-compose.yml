@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   nextcloud:
-    image: nextcloud:12-apache
+    image: nextcloud:14.0.3-apache
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
