@@ -3,14 +3,8 @@ version: '3.7'
 services:
   nextcloud:
     image: nextcloud:14.0.3-apache
-    environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_HOST=mysql:3306
-      - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
-      - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
-      - NEXTCLOUD_TABLE_PREFIX=nc_
+    env_file:
+      .env
     links:
       - db
     depends_on:
@@ -23,8 +17,8 @@ services:
   db:
     image: mysql:8.0.13
     restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    env_file:
+      .env
     networks:
       default:
         aliases:
